@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 할일 목록</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <h1>나의 할일 목록</h1>
+        <button id="theme-toggle-button" type="button" aria-label="다크모드 전환">
+          🌙
+        </button>
+      </header>
+
+      <section class="input-area" aria-label="할 일 입력 영역">
+        <input
+          id="todo-input"
+          type="text"
+          placeholder="할 일을 입력하세요"
+          aria-label="할 일 입력"
+        />
+        <button id="add-button" type="button">추가</button>
+      </section>
+
+      <section class="status-area" aria-label="할 일 상태 영역">
+        <div class="filter-buttons" role="group" aria-label="할 일 필터">
+          <button class="filter-button is-active" data-filter="all" type="button">
+            전체(0)
+          </button>
+          <button class="filter-button" data-filter="completed" type="button">
+            완료(0)
+          </button>
+          <button class="filter-button" data-filter="active" type="button">
+            미완료(0)
+          </button>
+        </div>
+      </section>
+
+      <section class="list-area" aria-label="할 일 목록 영역">
+        <ul id="todo-list"></ul>
+      </section>
+
+      <footer class="app-footer">
+        <p id="motivation-quote"></p>
+      </footer>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
