@@ -74,21 +74,42 @@ body {
 
 .input-area {
   margin-bottom: 12px;
+  /* section 기본은 블록이지만, 상위가 flex일 때도 가로를 꽉 쓰도록 명시합니다. */
+  width: 100%;
 }
 
 .input-area-main {
   display: flex;
   flex-direction: column;
   gap: 0;
+  /* column flex 안에서 자식(.input-row)이 가로로 늘어나려면 부모 폭이 확정되어야 합니다. */
+  width: 100%;
+  min-width: 0;
 }
 
 .input-row {
   display: flex;
+  flex-direction: row;
+  align-items: stretch;
   gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+
+/*
+  flex 행에서 input을 직접 flex 자식으로 두면, 브라우저가 input의 "기본 최소 너비"를 크게 잡아
+  한 줄 전체(.input-row)가 그 너비에 맞춰 줄어드는 현상이 납니다.
+  감싸는 div가 남는 가로를 받고(input은 그 안에서 width:100%), 버튼은 고정 폭을 유지합니다.
+*/
+.todo-input-wrap {
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 #todo-input {
-  flex: 1;
+  display: block;
+  width: 100%;
+  min-width: 0;
   padding: 12px;
   border: 1px solid var(--muted-border);
   border-radius: 8px;
@@ -150,6 +171,7 @@ body.dark-mode .todo-input-error {
 }
 
 #add-button {
+  flex-shrink: 0;
   padding: 0 20px;
   border: none;
   border-radius: 8px;

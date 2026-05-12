@@ -114,9 +114,22 @@ function clearTodoInputError() {
   todoInputError.classList.add("is-hidden");
 }
 
+/**
+ * 할 일 문자열을 저장·검증용으로 정리합니다.
+ * 제로폭 공간(U+200B 등)·워드 조이너(U+2060)·BOM 등은 .trim()으로 지워지지 않아 빈 줄처럼 보여도 truthy가 될 수 있어 제거합니다.
+ */
+function normalizeTodoText(raw) {
+  return (
+    String(raw ?? "")
+      // 제로폭·BOM·워드 조이너·NBSP·전각 공백 등 "보이지 않거나 공백만"인 입력을 한 줄로 정리합니다.
+      .replace(/[\u200b-\u200d\ufeff\u2060\u00a0\u3000]/g, "")
+      .trim()
+  );
+}
+
 function addTodo() {
-  // 앞뒤 공백을 제거한 실제 입력 내용입니다.
-  const text = todoInput.value.trim();
+  // 입력창 값을 정리한 뒤 실제로 쓸 문자열만 남깁니다.
+  const text = normalizeTodoText(todoInput.value);
 
   // 내용이 비어 있으면 추가하지 않고, 화면 안에서만 부드럽게 안내합니다.
   if (!text) {
@@ -164,13 +177,14 @@ function editTodo(id) {
 
   const editedText = prompt("할 일을 수정하세요.", targetTodo.text);
 
-  if (editedText === null) {
+  // 취소는 null, 일부 환경에서는 undefined일 수 있어 둘 다 막습니다.
+  if (editedText == null) {
     return;
   }
 
-  const trimmedText = editedText.trim();
+  const trimmedText = normalizeTodoText(editedText);
 
-  // 수정 내용이 비어 있으면 저장하지 않고, 목록 위 입력 영역에 안내합니다.
+  // 공백만·보이지 않는 문자만 남은 경우도 빈 수정으로 보고 저장하지 않습니다.
   if (!trimmedText) {
     showTodoInputError("수정 내용을 입력해주세요!");
     return;

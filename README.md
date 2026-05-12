@@ -28,6 +28,15 @@ HTML, CSS, JavaScript만으로 만든 할 일 관리 웹앱입니다.
 - 에러 메시지는 `#todo-input` 아래 `#todo-input-error`에 표시되며, 평소에는 `.is-hidden`으로 숨깁니다.
 - CSS 클래스 `.shake`로 입력창 좌우 흔들림을 주고, `animationend`에서 클래스를 제거해 같은 오류가 연속으로 나도 애니메이션이 다시 재생됩니다.
 - 사용자가 다시 입력(`input` 이벤트)하면 메시지와 강조 효과가 사라집니다.
+- 수정(`prompt`) 결과는 `normalizeTodoText()`로 정리한 뒤 저장합니다. 제로폭 문자·NBSP·전각 공백 등만 남은 경우도 빈 입력으로 처리해 빈 항목이 저장되지 않도록 합니다.
+
+### 입력 줄 레이아웃
+
+- `flex` 행에서 `input`을 직접 늘리면 브라우저마다 기본 최소 너비 때문에 줄 전체가 좁아질 수 있어, 입력창을 **`div.todo-input-wrap`**으로 감싼 뒤 래퍼에만 `flex: 1`을 줍니다.
+
+### 정적 파일 캐시
+
+- `index.html`에서 `style.css`, `script.js`에 **`?v=…`** 쿼리를 붙여 배포 후 브라우저가 옛 파일을 붙잡는 현상을 줄입니다. 내용을 크게 바꾼 뒤에는 숫자를 올리면 됩니다.
 
 ## LocalStorage 키
 
@@ -53,6 +62,7 @@ learn-0507-MY-ToDo/
 2. `index.html`을 브라우저에서 직접 열거나, 로컬 서버로 실행합니다.
    - PowerShell 예: `Set-Location`으로 프로젝트 폴더로 이동 후 `py -m http.server 5500`
 3. 브라우저에서 `http://localhost:5500/` 접속
+4. 화면이나 동작이 예전과 같으면 **강력 새로고침(Ctrl+F5)** 으로 캐시를 비워 보세요.
 
 ## GitHub Pages 배포
 
