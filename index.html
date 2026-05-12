@@ -16,13 +16,25 @@
       </header>
 
       <section class="input-area" aria-label="할 일 입력 영역">
-        <input
-          id="todo-input"
-          type="text"
-          placeholder="할 일을 입력하세요"
-          aria-label="할 일 입력"
-        />
-        <button id="add-button" type="button">추가</button>
+        <div class="input-area-main">
+          <div class="input-row">
+            <input
+              id="todo-input"
+              type="text"
+              placeholder="할 일을 입력하세요"
+              aria-label="할 일 입력"
+              aria-invalid="false"
+              aria-describedby="todo-input-error"
+            />
+            <button id="add-button" type="button">추가</button>
+          </div>
+          <p
+            id="todo-input-error"
+            class="todo-input-error is-hidden"
+            role="alert"
+            aria-live="polite"
+          ></p>
+        </div>
       </section>
 
       <section class="status-area" aria-label="할 일 상태 영역">
