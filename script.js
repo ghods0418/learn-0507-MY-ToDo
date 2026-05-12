@@ -190,6 +190,9 @@ function editTodo(id) {
     return;
   }
 
+  // 이전에 빈 수정으로 떠 있던 안내는 저장이 성공하면 반드시 걷습니다.
+  clearTodoInputError();
+
   todos = todos.map((todo) =>
     todo.id === id ? { ...todo, text: trimmedText, completed: false } : todo
   );
